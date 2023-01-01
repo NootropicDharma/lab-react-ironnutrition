@@ -1,12 +1,18 @@
 import React from 'react'
 import { useState } from 'react';
 import {Input,Button,Form} from 'antd';
+import { OmitProps } from 'antd/es/transfer/ListBody';
 
-const AddFoodForm = () => {
+const AddFoodForm = (props) => {
     const [name, setName] = useState("")
     const [image, setImage] = useState("")
     const [calories, setCalories] = useState("")
     const [servings, setServings] = useState("")
+
+   
+        
+    
+    //this is for the onChange={}
 
     function actualizarName(nombre){
         setName(nombre)
@@ -20,6 +26,16 @@ const AddFoodForm = () => {
     function actualizarServings(serviciones){
         setServings(serviciones)
     }
+
+
+    //this is for the Button onClick={}
+
+    function guardarDatos(){
+        console.log({name, image, calories, servings})
+        props.updateComida({name, image,calories, servings })
+    }
+    
+    
   //controlled component 
     return (
         <Form layout='vertical'>
@@ -41,7 +57,7 @@ const AddFoodForm = () => {
         </Form.Item>
           
           
-          <Button type='primary'>Save</Button>
+          <Button type='primary'onClick={guardarDatos}>Save</Button>
         </Form>
       );
   
