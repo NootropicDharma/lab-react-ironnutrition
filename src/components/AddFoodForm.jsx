@@ -39,7 +39,7 @@ const AddFoodForm = (props) => {
   //controlled component 
     return (
         <Form layout='vertical'>
-          AddFoodForm
+    
         <Form.Item label="Name">
             <Input value={name} placeholder='Name' onChange={(event)=>actualizarName(event.target.value)}/>
         </Form.Item>

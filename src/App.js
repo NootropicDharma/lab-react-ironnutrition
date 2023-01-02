@@ -3,13 +3,14 @@ import alimentos from "./foods.json"
 import FoodBox from './components/FoodBox';
 import AddFoodForm from './components/AddFoodForm';
 import { useState } from 'react';
-import {Input} from "antd"
+import {Input,Button} from "antd"
 
 
 function App() {
   const [foods, setFoods] = useState(alimentos)
   const [updatedFoods, setUpdatedFoods] = useState(alimentos)
-  const [copiaSeguridad, setCopiaSeguridad] = useState(alimentos)
+  const [show, setShow] = useState(false)
+  
 
   
 
@@ -51,27 +52,47 @@ function App() {
  }
 
  function eliminarComida (event){
+  
 
+  const arry = foods.filter(comida =>{
+   
+       return comida.name !== event
+    
+  })
+  
+  setUpdatedFoods(arry)
+  setFoods(arry)
    
 
  }
 
-
-
+ function mostrarForm(){
+  //this is called toggle below 
+      setShow(!show)
+  }
 
 
   return (
     <div className="App">
-      <AddFoodForm updateComida={updateComida}></AddFoodForm>
-      <Input onChange={filtrarDatos}/>
+
+
+    
+       {show && <AddFoodForm updateComida={updateComida}></AddFoodForm>}
+      <Button onClick={mostrarForm}>{show? "HideForm" : "Showform"}</Button>
+      
+        <Input onChange={filtrarDatos}/>
         <div className="foods">
           {
+
             updatedFoods.map(foodie=>{
           
             return <FoodBox key={foodie._id} datos={foodie} eliminarComida={eliminarComida}/>
           })
+
           }
-        </div> 
+        </div>
+
+        {foods.length === 0 && <h1>Ops! No More Content</h1>} 
     </div>
   );
 }
